@@ -6,11 +6,9 @@ bookings = []
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-
     message = ""
 
     if request.method == "POST":
-
         name = request.form["name"]
         email = request.form["email"]
         source = request.form["source"]
@@ -24,7 +22,6 @@ def home():
 
         if flight_class == "Business":
             price = 9000
-
         elif flight_class == "First":
             price = 15000
 
@@ -50,7 +47,6 @@ def home():
         bookings=bookings,
         message=message
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)
