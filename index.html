@@ -1,125 +1,96 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airplane Ticket Booking</title>
 
-<title>Airplane Ticket Booking</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f0f5ff;
+            margin:0;
+            padding:0;
+        }
 
-<style>
+        .container{
+            width:800px;
+            margin:30px auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 15px gray;
+        }
 
-body{
+        h1{
+            text-align:center;
+            color:darkblue;
+        }
 
-font-family:Arial;
-background:#f0f5ff;
-margin:0;
-padding:0;
+        input, select{
+            width:100%;
+            padding:10px;
+            margin:10px 0 15px;
+            box-sizing:border-box;
+        }
 
-}
+        button{
+            width:100%;
+            padding:12px;
+            background:blue;
+            color:white;
+            font-size:18px;
+            border:none;
+            cursor:pointer;
+        }
 
-.container{
+        button:hover{
+            background:darkblue;
+        }
 
-width:800px;
-margin:auto;
-margin-top:30px;
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0px 0px 15px gray;
+        .success{
+            background:#d4edda;
+            color:#155724;
+            padding:12px;
+            margin-top:20px;
+            border-radius:5px;
+        }
 
-}
+        table{
+            width:100%;
+            margin-top:20px;
+            border-collapse:collapse;
+        }
 
-h1{
+        table, th, td{
+            border:1px solid gray;
+        }
 
-text-align:center;
-color:darkblue;
+        th{
+            background:blue;
+            color:white;
+        }
 
-}
+        th, td{
+            padding:10px;
+            text-align:center;
+        }
+    </style>
 
-input,select{
+    <script>
+        function validateForm(){
 
-width:100%;
-padding:10px;
-margin-top:10px;
-margin-bottom:15px;
+            let s = document.forms["booking"]["source"].value;
+            let d = document.forms["booking"]["destination"].value;
 
-}
+            if(s === d){
+                alert("Source and Destination cannot be the same.");
+                return false;
+            }
 
-button{
-
-width:100%;
-padding:12px;
-background:blue;
-color:white;
-font-size:18px;
-border:none;
-cursor:pointer;
-
-}
-
-button:hover{
-
-background:darkblue;
-
-}
-
-.success{
-
-background:lightgreen;
-padding:10px;
-margin-top:15px;
-
-}
-
-table{
-
-width:100%;
-margin-top:20px;
-border-collapse:collapse;
-
-}
-
-table,th,td{
-
-border:1px solid gray;
-
-}
-
-th{
-
-background:blue;
-color:white;
-
-}
-
-th,td{
-
-padding:10px;
-text-align:center;
-
-}
-
-</style>
-
-<script>
-
-function validateForm(){
-
-let s=document.forms["booking"]["source"].value;
-let d=document.forms["booking"]["destination"].value;
-
-if(s==d){
-
-alert("Source and Destination cannot be same.");
-return false;
-
-}
-
-return true;
-
-}
-
-</script>
-
+            return true;
+        }
+    </script>
 </head>
 
 <body>
@@ -128,76 +99,48 @@ return true;
 
 <h1>✈ Airplane Ticket Booking System</h1>
 
-<form name="booking" method="POST" onsubmit="return validateForm()">
+<form action="/" method="POST" name="booking" onsubmit="return validateForm()">
 
-<input
-type="text"
-name="name"
-placeholder="Passenger Name"
-required>
+    <input type="text" name="name" placeholder="Passenger Name" required>
 
-<input
-type="email"
-name="email"
-placeholder="Email Address"
-required>
+    <input type="email" name="email" placeholder="Email Address" required>
 
-<select name="source">
+    <select name="source" required>
+        <option value="">Select Source</option>
+        <option>Mumbai</option>
+        <option>Pune</option>
+        <option>Delhi</option>
+        <option>Hyderabad</option>
+        <option>Bangalore</option>
+    </select>
 
-<option>Mumbai</option>
-<option>Pune</option>
-<option>Delhi</option>
-<option>Hyderabad</option>
-<option>Bangalore</option>
+    <select name="destination" required>
+        <option value="">Select Destination</option>
+        <option>Dubai</option>
+        <option>Germany</option>
+        <option>Japan</option>
+        <option>Maldives</option>
+        <option>Canada</option>
+    </select>
 
-</select>
+    <input type="date" name="date" required>
 
-<select name="destination">
+    <select name="flight_class" required>
+        <option>Economy</option>
+        <option>Business</option>
+        <option>First</option>
+    </select>
 
-<option>Dubai</option>
-<option>Germany</option>
-<option>Japan</option>
-<option>Maldives</option>
-<option>Canada</option>
+    <input type="number" name="passengers" min="1" max="10" required>
 
-</select>
-
-<input
-type="date"
-name="date"
-required>
-
-<select name="flight_class">
-
-<option>Economy</option>
-<option>Business</option>
-<option>First</option>
-
-</select>
-
-<input
-type="number"
-name="passengers"
-min="1"
-max="10"
-required>
-
-<button>
-
-Book Ticket
-
-</button>
+    <button type="submit">Book Ticket</button>
 
 </form>
 
 {% if message %}
-
 <div class="success">
-
-{{message}}
-
+    {{ message }}
 </div>
-
 {% endif %}
 
 <h2>Booking History</h2>
@@ -205,31 +148,25 @@ Book Ticket
 <table>
 
 <tr>
-
-<th>Name</th>
-<th>Source</th>
-<th>Destination</th>
-<th>Date</th>
-<th>Class</th>
-<th>Passengers</th>
-<th>Total Price</th>
-
+    <th>Name</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Date</th>
+    <th>Class</th>
+    <th>Passengers</th>
+    <th>Total Price</th>
 </tr>
 
 {% for b in bookings %}
-
 <tr>
-
-<td>{{b.name}}</td>
-<td>{{b.source}}</td>
-<td>{{b.destination}}</td>
-<td>{{b.date}}</td>
-<td>{{b.class}}</td>
-<td>{{b.passengers}}</td>
-<td>₹{{b.total}}</td>
-
+    <td>{{ b.name }}</td>
+    <td>{{ b.source }}</td>
+    <td>{{ b.destination }}</td>
+    <td>{{ b.date }}</td>
+    <td>{{ b["class"] }}</td>
+    <td>{{ b.passengers }}</td>
+    <td>₹{{ b.total }}</td>
 </tr>
-
 {% endfor %}
 
 </table>
@@ -237,5 +174,6 @@ Book Ticket
 </div>
 
 </body>
+</html>
 
 </html>
