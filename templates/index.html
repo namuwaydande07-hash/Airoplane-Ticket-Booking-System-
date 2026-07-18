@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Airplane Ticket Booking</title>
+
+<style>
+
+body{
+
+font-family:Arial;
+background:#f0f5ff;
+margin:0;
+padding:0;
+
+}
+
+.container{
+
+width:800px;
+margin:auto;
+margin-top:30px;
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0px 0px 15px gray;
+
+}
+
+h1{
+
+text-align:center;
+color:darkblue;
+
+}
+
+input,select{
+
+width:100%;
+padding:10px;
+margin-top:10px;
+margin-bottom:15px;
+
+}
+
+button{
+
+width:100%;
+padding:12px;
+background:blue;
+color:white;
+font-size:18px;
+border:none;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:darkblue;
+
+}
+
+.success{
+
+background:lightgreen;
+padding:10px;
+margin-top:15px;
+
+}
+
+table{
+
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+
+}
+
+table,th,td{
+
+border:1px solid gray;
+
+}
+
+th{
+
+background:blue;
+color:white;
+
+}
+
+th,td{
+
+padding:10px;
+text-align:center;
+
+}
+
+</style>
+
+<script>
+
+function validateForm(){
+
+let s=document.forms["booking"]["source"].value;
+let d=document.forms["booking"]["destination"].value;
+
+if(s==d){
+
+alert("Source and Destination cannot be same.");
+return false;
+
+}
+
+return true;
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>✈ Airplane Ticket Booking System</h1>
+
+<form name="booking" method="POST" onsubmit="return validateForm()">
+
+<input
+type="text"
+name="name"
+placeholder="Passenger Name"
+required>
+
+<input
+type="email"
+name="email"
+placeholder="Email Address"
+required>
+
+<select name="source">
+
+<option>Mumbai</option>
+<option>Pune</option>
+<option>Delhi</option>
+<option>Hyderabad</option>
+<option>Bangalore</option>
+
+</select>
+
+<select name="destination">
+
+<option>Dubai</option>
+<option>Germany</option>
+<option>Japan</option>
+<option>Maldives</option>
+<option>Canada</option>
+
+</select>
+
+<input
+type="date"
+name="date"
+required>
+
+<select name="flight_class">
+
+<option>Economy</option>
+<option>Business</option>
+<option>First</option>
+
+</select>
+
+<input
+type="number"
+name="passengers"
+min="1"
+max="10"
+required>
+
+<button>
+
+Book Ticket
+
+</button>
+
+</form>
+
+{% if message %}
+
+<div class="success">
+
+{{message}}
+
+</div>
+
+{% endif %}
+
+<h2>Booking History</h2>
+
+<table>
+
+<tr>
+
+<th>Name</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Date</th>
+<th>Class</th>
+<th>Passengers</th>
+<th>Total Price</th>
+
+</tr>
+
+{% for b in bookings %}
+
+<tr>
+
+<td>{{b.name}}</td>
+<td>{{b.source}}</td>
+<td>{{b.destination}}</td>
+<td>{{b.date}}</td>
+<td>{{b.class}}</td>
+<td>{{b.passengers}}</td>
+<td>₹{{b.total}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>
